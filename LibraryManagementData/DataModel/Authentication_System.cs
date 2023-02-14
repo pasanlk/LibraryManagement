@@ -19,6 +19,8 @@ namespace LibraryManagementData.DataModel
         {
             this.Staffs = new HashSet<Staff>();
         }
+
+        //
     
         public int login_id { get; set; }
         public string user_name { get; set; }

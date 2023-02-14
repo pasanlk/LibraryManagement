@@ -3,6 +3,7 @@ using LibraryManagementViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,46 +21,85 @@ namespace LibraryManagementBusinessLogic.Services
 
         public void AddReader(ReaderModel newReader)
         {
-            if( newReader !=null )
+            try
             {
-                Reader newAddingReader = new Reader() 
+                if (newReader != null)
                 {
-                    reader_id=newReader.readerId,
-                    first_name=newReader.firstName,
-                    last_name=newReader.lastName,
-                    email=newReader.email,
-                    address=newReader.address,
-                    phone=newReader.phone,
+                    Reader newAddingReader = new Reader()
+                    {
+                        reader_id = newReader.readerId,
+                        first_name = newReader.firstName,
+                        last_name = newReader.lastName,
+                        email = newReader.email,
+                        address = newReader.address,
+                        phone = newReader.phone,
 
-                };
-                readerDbContext.Readers.Add(newAddingReader);
-                readerDbContext.SaveChanges();
+                    };
+                    readerDbContext.Readers.Add(newAddingReader);
+                    readerDbContext.SaveChanges();
 
 
+                }
+               
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
 
         }
 
         public void UpdateReader(ReaderModel newReader)
         {
-            if (newReader != null)
+            try
             {
-                Reader UpdatingReader = new Reader()
+                if (newReader != null)
                 {
-                    reader_id = newReader.readerId,
-                    first_name = newReader.firstName,
-                    last_name = newReader.lastName,
-                    email = newReader.email,
-                    address = newReader.address,
-                    phone = newReader.phone,
+                    Reader UpdatingReader = new Reader()
+                    {
+                        reader_id = newReader.readerId,
+                        first_name = newReader.firstName,
+                        last_name = newReader.lastName,
+                        email = newReader.email,
+                        address = newReader.address,
+                        phone = newReader.phone,
 
-                };
-                readerDbContext.Readers.Append(UpdatingReader);
-                readerDbContext.SaveChanges();
+                    };
+                    readerDbContext.Readers.Append(UpdatingReader);
+                    readerDbContext.SaveChanges();
 
 
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
 
+        }
+
+        public Reader GetReader(int searchId)
+        {
+            try
+            {
+                return readerDbContext.Readers.Find(searchId);
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void DeleteReader(int searchId) {
+            try
+            {
+                Reader existing = readerDbContext.Readers.Find(searchId);
+                readerDbContext.Readers.Remove(existing);
+                readerDbContext.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
 

@@ -19,6 +19,8 @@ namespace LibraryManagementData.DataModel
         {
             this.Book_Reservation = new HashSet<Book_Reservation>();
         }
+
+        //these are directly communicate with the database and access database data through this
     
         public int isbn_number { get; set; }
         public string authno { get; set; }
