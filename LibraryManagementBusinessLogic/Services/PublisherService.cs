@@ -18,34 +18,66 @@ namespace LibraryManagementBusinessLogic.Services
 
         public void AddPublisher(PublisherModel newPublisher)
         {
-            if(newPublisher !=null)
+            try
             {
-                Publisher newAddingPublisher = new Publisher()
+                if (newPublisher != null)
                 {
-                    publisher_id=newPublisher.publisherId,
-                    name= newPublisher.name,
-                    year_of_publication=newPublisher.yearOfPublication,
-                };
+                    Publisher newAddingPublisher = new Publisher()
+                    {
+                        publisher_id = newPublisher.publisherId,
+                        name = newPublisher.name,
+                        year_of_publication = newPublisher.yearOfPublication,
+                    };
 
-                publisherDbContext.Publishers.Add(newAddingPublisher);
-                publisherDbContext.SaveChanges();   
+                    publisherDbContext.Publishers.Add(newAddingPublisher);
+                    publisherDbContext.SaveChanges();
+                }
+                
+            }catch(Exception ex)
+            {
+                throw ex;
             }
         }
 
         public void UpdatePublisher(PublisherModel newPublisher)
         {
-            if (newPublisher != null)
+            try
             {
-                Publisher newUpdatingPublisher = new Publisher()
+                if (newPublisher != null)
                 {
-                    publisher_id = newPublisher.publisherId,
-                    name = newPublisher.name,
-                    year_of_publication = newPublisher.yearOfPublication,
-                };
+                    Publisher newUpdatingPublisher = new Publisher()
+                    {
+                        publisher_id = newPublisher.publisherId,
+                        name = newPublisher.name,
+                        year_of_publication = newPublisher.yearOfPublication,
+                    };
 
-                publisherDbContext.Publishers.Append(newUpdatingPublisher);
+                    publisherDbContext.Publishers.Append(newUpdatingPublisher);
+                    publisherDbContext.SaveChanges();
+                }
+            }
+            catch(Exception ex) { throw ex; }
+        }
+
+
+        public Publisher GetPublisher(int searchId)
+        {
+            try
+            {
+                return publisherDbContext.Publishers.Find(searchId);
+            }
+            catch(Exception ex) { throw ex; }
+        }
+
+        public void DeletePublisher(int searchId)
+        {
+            try
+            {
+                Publisher existing = publisherDbContext.Publishers.Find(searchId);
+                publisherDbContext.Publishers.Remove(existing);
                 publisherDbContext.SaveChanges();
             }
+            catch(Exception ex) { throw ex; }
         }
     }
 }

@@ -9,6 +9,8 @@ namespace LibraryManagementViewModel
     public class BookModel
     {
 
+        
+
         public int IsbnNumber { get; set; }
         public string Authno { get; set; }
         public string Title { get; set; }

@@ -52,20 +52,41 @@ namespace LibraryManagementBusinessLogic.Services
 
         public void UpdateStaff(StaffModel newStaff)
         {
-            if(newStaff != null)
+            try
             {
-                Staff newUpdatingStaff = new Staff()
+                if (newStaff != null)
                 {
-                    satff_id = newStaff.satffId,
-                    name = newStaff.name,
-                    login_id = newStaff.loginId,
-                    
-                };
+                    Staff newUpdatingStaff = new Staff()
+                    {
+                        satff_id = newStaff.satffId,
+                        name = newStaff.name,
+                        login_id = newStaff.loginId,
 
-                staffDbContext.Staffs.Append(newUpdatingStaff);
-                staffDbContext.SaveChanges();   
+                    };
+
+                    staffDbContext.Staffs.Append(newUpdatingStaff);
+                    staffDbContext.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
+
+        public Staff GetStaff(int searchId)
+        {
+            return staffDbContext.Staffs.Find(searchId);
+        }
+
+        public void DeleteStaff(int searchId)
+        {
+            Staff existing = staffDbContext.Staffs.Find(searchId);
+            staffDbContext.Staffs.Remove(existing);
+            staffDbContext.SaveChanges();
+        }
+
+
 
 
 

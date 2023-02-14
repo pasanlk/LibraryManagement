@@ -82,30 +82,54 @@ namespace LibraryManagementBusinessLogic.Services
         public void UpdateBook(BookModel newBook)
         {
 
-            Publisher bookPublisher = new Publisher();
-            bookPublisher.publisher_id = newBook.PublisherId;
-            bookPublisher.name = newBook.Publisher.name;
-
-
-            Book newUpdatingBook = new Book()
+            try
             {
+                Publisher bookPublisher = new Publisher();
+                bookPublisher.publisher_id = newBook.PublisherId;
+                bookPublisher.name = newBook.Publisher.name;
 
 
-                isbn_number = newBook.IsbnNumber,
-                title = newBook.Title,
-                authno = newBook.Authno,
-                edition = newBook.Edition,
-                category = newBook.Category,
-                staff_id = newBook.StaffId,
-                publisher_id = newBook.PublisherId,
-                release_date = newBook.ReleaseDate,
-                price = newBook.Price,
+                Book newUpdatingBook = new Book()
+                {
 
-            };
 
-            bookDbContext.Books.Append(newUpdatingBook);
-            bookDbContext.SaveChanges();
+                    isbn_number = newBook.IsbnNumber,
+                    title = newBook.Title,
+                    authno = newBook.Authno,
+                    edition = newBook.Edition,
+                    category = newBook.Category,
+                    staff_id = newBook.StaffId,
+                    publisher_id = newBook.PublisherId,
+                    release_date = newBook.ReleaseDate,
+                    price = newBook.Price,
 
+                };
+
+                bookDbContext.Books.Append(newUpdatingBook);
+                bookDbContext.SaveChanges();
+            }
+            catch(Exception ex ) { throw ex; }  
+
+        }
+
+        public Book  GetBook(int searchId)
+        {
+            try
+            {
+                return bookDbContext.Books.Find(searchId);
+            }
+            catch(Exception ex) { throw ex; }
+        }
+
+        public void DeleteBook(int searchId)
+        {
+            try
+            {
+                Book existing = bookDbContext.Books.Find(searchId);
+                bookDbContext.Books.Remove(existing);
+                bookDbContext.SaveChanges();
+            }
+            catch(Exception ex) { throw ex; }   
         }
 
     }
